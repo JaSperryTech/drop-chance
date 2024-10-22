@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Dynamic Drop Rate System</title>
+</head>
+
+<body>
+  <h1>Loot Drop Rates</h1>
+
+  <div id="drop-rate-container"></div>
+
+  <button id="update-drop-rates">Update Drop Rates</button>
+  <button id="save-settings">Save Settings</button>
+
+  <label for="api-endpoint">API Endpoint:</label>
+  <input type="text" id="api-endpoint" value="drops.json" />
+
+  <label for="decimal-places">Decimal Places:</label>
+  <input type="number" id="decimal-places" value="2" />
+
+  <label for="show-rarity-colors">Show Rarity Colors:</label>
+  <input type="checkbox" id="show-rarity-colors" checked />
+
+  <script src="./dropModule.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{
+  "Boxes": [
+    {
+      "name": "Starter Box",
+      "categories": [
+        {
+          "name": "Weapons",
+          "items": [
+            {
+              "name": "Common Weapon",
+              "dropRate": 0.5,
+              "rarity": "common"
+            },
+            {
+              "name": "Rare Weapon",
+              "dropRate": 0.20,
+              "rarity": "epic"
+            }
+          ]
+        },
+        {
+          "name": "Armor",
+          "items": [
+            {
+              "name": "Epic Armor",
+              "dropRate": 0.1,
+              "rarity": "rare"
+            },
+            {
+              "name": "Legendary Armor",
+              "dropRate": 0.05,
+              "rarity": "legendary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rarer Box",
+      "categories": [
+        {
+          "name": "Weapons",
+          "items": [
+            {
+              "name": "Common Weapon",
+              "dropRate": 0.4,
+              "rarity": "common"
+            },
+            {
+              "name": "Rare Weapon",
+              "dropRate": 0.40,
+              "rarity": "epic"
+            }
+          ]
+        },
+        {
+          "name": "Armor",
+          "items": [
+            {
+              "name": "Epic Armor",
+              "dropRate": 0.1,
+              "rarity": "rare"
+            },
+            {
+              "name": "Legendary Armor",
+              "dropRate": 0.05,
+              "rarity": "legendary"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.box {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category h3 {
+  text-decoration: underline;
+}
+
+.drop-item {
+  margin-bottom: 10px;
+}
+
+.drop-rate {
+  font-weight: bold;
+}
+
+.common {
+  color: gray;
+}
+
+.rare {
+  color: blue;
+}
+
+.epic {
+  color: purple;
+}
+
+.legendary {
+  color: orange;
+}
