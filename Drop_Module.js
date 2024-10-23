@@ -1,57 +1,58 @@
-const DropRateModule = (() => {
+const DropModule = (() => {
   const defaultSettings = {
-    dropJSON: "drops.json",
-    dropRateContainer: "drop-rate-container",
+    JSONFile: "./drops.json", // Where to access the file for the drops
+    dropContainer: "drop-container", // Container that will display everything in
     loadingMessage: "Loading...",
     errorMessage: "Error loading data. Please try again.",
     decimalPlaces: 2,
     showRarityColors: true,
+    Boxes: "Boxes", // What is the first thing in your JSON? EX: Line 2 ("Boxes": [])
   };
 
   let settings = { ...defaultSettings };
 
-  function loadSettingsFromStorage() {
+  function loadSettings() {
     const storedSettings = localStorage.getItem("dropSettings");
     if (storedSettings) {
       settings = JSON.parse(storedSettings);
-      console.log("Loaded settings from local storage:", settings);
+      console.log("Loaded settings from local storage: ", settings);
     } else {
-      console.log("No settings found in local storage. Using defaults.");
+      console.warn("No settings found in local storage. Using defaults.");
     }
   }
 
   function saveSettings() {
     localStorage.setItem("dropSettings", JSON.stringify(settings));
-    console.log("Settings saved:", settings);
+    console.log("Settings saved: ", settings);
   }
 
   async function fetchDrops() {
-    const container = document.getElementById(settings.dropRateContainer);
-    console.log("Container:", container);
+    const container = document.getElementById(settings.dropContainer);
+    console.log("Container: ", container);
 
     if (!container) {
-      console.error(`Element with ID ${settings.dropRateContainer} not found.`);
+      console.warn(`Element with ID ${settings.dropContainer} not found.`);
       return;
     }
 
     container.innerHTML = `<p>${settings.loadingMessage}</p>`;
 
     try {
-      const response = await fetch(settings.dropJSON);
+      const response = await fetch(settings.JSONFile);
       if (!response.ok) throw new Error("Network response was not ok");
       const data = await response.json();
-      return data.Boxes; // Return Boxes instead of categories
+      return data[`${defaultSettings.Boxes}`];
     } catch (error) {
-      console.error("Failed to fetch drops:", error);
+      console.error("Failed to fetch drops: ", error);
       container.innerHTML = `<p>${settings.errorMessage}</p>`;
     }
   }
 
-  function renderDropRates(boxes) {
-    const container = document.getElementById(settings.dropRateContainer);
+  function renderDrop(object) {
+    const container = document.getElementById(settings.dropContainer);
     container.innerHTML = ""; // Clears any old data
 
-    boxes.forEach((box) => {
+    object.forEach((box) => {
       // Create a div for the box
       const boxDiv = document.createElement("div");
       boxDiv.classList.add("box");
@@ -93,18 +94,18 @@ const DropRateModule = (() => {
     });
   }
 
-  async function updateDropRates() {
-    const boxes = await fetchDrops();
-    if (boxes) {
-      renderDropRates(boxes);
+  async function updateDrop() {
+    const object = await fetchDrops();
+    if (object) {
+      renderDrop(object);
       saveSettings(); // Save settings after updating
     }
   }
 
   return {
     initialize: () => {
-      loadSettingsFromStorage(); // Load settings from local storage
-      updateDropRates(); // Initial load
+      loadSettings(); // Loads the settings from local Storage
+      updateDrop(); // Initial Load
     },
     setSettings: (newSettings) => {
       settings = { ...settings, ...newSettings }; // Merge new settings with existing ones
@@ -117,12 +118,15 @@ const DropRateModule = (() => {
   };
 })();
 
-// Initialize the module on page load
+// 2 more settings in here
 document.addEventListener("DOMContentLoaded", () => {
-  DropRateModule.initialize();
+  const updateID = "update-drop-rates";
+  const saveID = "save-settings";
 
-  document.getElementById("update-drop-rates").addEventListener("click", () => {
-    DropRateModule.updateDropRates();
+  DropModule.initialize();
+
+  document.getElementById(updateID).addEventListener("click", () => {
+    DropModule.updateDrop();
   });
 
   document.getElementById("save-settings").addEventListener("click", () => {
